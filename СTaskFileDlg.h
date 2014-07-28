@@ -39,4 +39,6 @@ public:
 //	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnGeneratetasklistScan();
 	afx_msg void OnGeneratetasklistFourier();
+//	afx_msg void OnLbnSetfocusList1();
+	afx_msg void OnLbnSelchangeList1();
 };

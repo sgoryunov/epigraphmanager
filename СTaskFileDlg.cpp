@@ -49,6 +49,8 @@ BEGIN_MESSAGE_MAP(СTaskFileDlg, CDialog)
 	ON_BN_CLICKED(IDOK, &СTaskFileDlg::OnOK)
 	ON_COMMAND(ID_GENERATETASKLIST_SCAN, &СTaskFileDlg::OnGeneratetasklistScan)
 	ON_COMMAND(ID_GENERATETASKLIST_FOURIER, &СTaskFileDlg::OnGeneratetasklistFourier)
+	/*ON_LBN_SETFOCUS(IDC_LIST1, &СTaskFileDlg::OnLbnSetfocusList1)*/
+	ON_LBN_SELCHANGE(IDC_LIST1, &СTaskFileDlg::OnLbnSelchangeList1)
 END_MESSAGE_MAP()
 
 
@@ -237,4 +239,39 @@ void СTaskFileDlg::OnGeneratetasklistFourier()
 	{
 
 	}
+}
+
+void СTaskFileDlg::OnLbnSelchangeList1()
+{
+	int strNumber;
+	strNumber = m_listedit.GetCurSel();
+	CString strText(_T(""));
+	strText =_T(" Chopper = ");
+	int ChopperStrLenght(strText.GetLength());
+	strText =_T(" HSMotor = ");
+	int HSMotorStrLenght(strText.GetLength());
+	strText =_T(" Carriage Position = ");
+	int CarriagePositionStrLenght(strText.GetLength());
+	strText =_T(" Measurement Time = ");
+	int MeasurementTimeStrLenght(strText.GetLength());
+
+	/*strText.Format(_T("string number is %i"),index);
+	AfxMessageBox(str);*/
+	m_listedit.GetText(strNumber,strText); //берем первую строчку из listbox
+	int indexIn=ChopperStrLenght;
+	int symbNum=strText.Find(_T(" HSMotor = "))-indexIn;
+	SetDlgItemTextW(IDC_EDIT2,strText.Mid(indexIn, symbNum));
+
+	indexIn=strText.Find(_T(" HSMotor = "))+HSMotorStrLenght;
+	symbNum=strText.Find(_T(" Carriage Position = "))-indexIn;
+	SetDlgItemTextW(IDC_EDIT3,strText.Mid(indexIn, symbNum));
+
+	indexIn=strText.Find(_T(" Carriage Position = "))+CarriagePositionStrLenght;
+	symbNum=strText.Find(_T(" Measurement Time = "))-indexIn;
+	SetDlgItemTextW(IDC_EDIT4,strText.Mid(indexIn, symbNum));
+
+	indexIn=strText.Find(_T(" Measurement Time = "))+MeasurementTimeStrLenght;
+	symbNum=strText.GetLength()-indexIn;
+	SetDlgItemTextW(IDC_EDIT1,strText.Mid(indexIn, symbNum));
+	// TODO: äîáàâüòå ñâîé êîä îáðàáîò÷èêà óâåäîìëåíèé
 }
