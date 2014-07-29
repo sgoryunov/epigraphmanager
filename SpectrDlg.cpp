@@ -674,7 +674,7 @@ void CSpectrDlg::OnBnClickedButton4()
 				handleTxt = FindFirstFile(strPath +_T("\\*.txt"), &ft);
 				// если в директории есть посторонние файлы
 				//предявим ноту протеста
-				if(handleDat == INVALID_HANDLE_VALUE ||
+				if(handleDat == INVALID_HANDLE_VALUE &&
 					handleTxt == INVALID_HANDLE_VALUE) 
 				{
 					m_EditDataFile.Clear();

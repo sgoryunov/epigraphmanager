@@ -158,6 +158,7 @@
     <ClInclude Include="СTaskFileDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\changes.txt" />
     <None Include="res\bitmap1.bmp" />
     <None Include="res\bitmap2.bmp" />
     <None Include="res\bitmap3.bmp" />

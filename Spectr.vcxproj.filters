@@ -170,6 +170,7 @@
     <None Include="res\icon3.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\changes.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spectr.rc">

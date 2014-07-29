@@ -72,20 +72,27 @@ CSampPosSystem::~CSampPosSystem(void)
 					{
 						m_CurCarriagePosInSteps-=m_StepsInMillimetre;
 						// выведем расчетное положение каретки
-						CSpectrDlg::PrintInEdit(m_pEditForEstPos,--m_EstCarriagePosition);
+						if(CSpectrDlg::m_PressBn !=STOP)
+							CSpectrDlg::PrintInEdit(m_pEditForEstPos,--m_EstCarriagePosition);
+						else 
+							m_EstCarriagePosition--;
 						CString in;
 						in.Format(_T("%i"),m_EstCarriagePosition);
 						WritePrivateProfileString(_T("SPS"),_T("Current carriage position"),in,CSpectrDlg::m_IniFileName);
 						pulse = 0;
-						// если нажата кнопка пауза ждем
-						while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
 						// если нажата стоп выходим из функции
 						if(CSpectrDlg::m_PressBn == STOP) 
 						{
 							CSpectrDlg::m_pE2010Module->TTL_OUT(NULL); 
 							return false;
 						}
+						
 					}
+					// если нажата кнопка пауза ждем
+					while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
+					// если нажата стоп выходим из функции
+					if(CSpectrDlg::m_PressBn == STOP && pulse == 79) 
+						int t=0;
 				}
 			}
 		}
@@ -111,14 +118,15 @@ CSampPosSystem::~CSampPosSystem(void)
 					{
 						m_CurCarriagePosInSteps+=m_StepsInMillimetre;
 						// выведем расчетное положение каретки
-						CSpectrDlg::PrintInEdit(m_pEditForEstPos,++m_EstCarriagePosition);
+						if(CSpectrDlg::m_PressBn !=STOP)
+							CSpectrDlg::PrintInEdit(m_pEditForEstPos,++m_EstCarriagePosition);
+						else 
+							m_EstCarriagePosition++;
 						// write the current position
 						CString in;
 						in.Format(_T("%i"),m_EstCarriagePosition);
 						WritePrivateProfileString(_T("SPS"),_T("Current carriage position"),in,CSpectrDlg::m_IniFileName);
 						pulse = 0;
-						// если нажата кнопка пауза ждем
-						while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
 						// если нажата стоп выходим из функции
 						if(CSpectrDlg::m_PressBn == STOP) 
 						{
@@ -126,9 +134,10 @@ CSampPosSystem::~CSampPosSystem(void)
 							CSpectrDlg::m_pE2010Module->TTL_OUT(NULL); 
 							return false;
 						}
-					}
+					}	
 				}
-
+				// если нажата кнопка пауза ждем
+				while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
 			}
 			// kill the luft
 			KillThelLuft();
@@ -163,10 +172,15 @@ void CSampPosSystem::KillThelLuft(void)
 			if (pulse>=m_StepsInMillimetre)
 			{
 				// выведем расчетное положение каретки
-				CSpectrDlg::PrintInEdit(m_pEditForEstPos,++m_EstCarriagePosition);
+				if(CSpectrDlg::m_PressBn !=STOP)
+					CSpectrDlg::PrintInEdit(m_pEditForEstPos,++m_EstCarriagePosition);
+				else 
+					m_EstCarriagePosition++;
 				pulse = 0;
 			}
 		}
+		// если нажата кнопка пауза ждем
+		while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
 	}
 	WORD valForDiraction(0);
 	if(m_IsPulseSignalSys) pulseHighLevel = pow(2.0,m_PulseOrUpPulseTTLoutPin-1);
@@ -189,9 +203,14 @@ void CSampPosSystem::KillThelLuft(void)
 			if (pulse>=m_StepsInMillimetre)
 			{
 				// выведем расчетное положение каретки
-				CSpectrDlg::PrintInEdit(m_pEditForEstPos,--m_EstCarriagePosition);
+				if(CSpectrDlg::m_PressBn !=STOP)
+					CSpectrDlg::PrintInEdit(m_pEditForEstPos,--m_EstCarriagePosition);
+				else 
+					m_EstCarriagePosition--;
 				pulse = 0;
 			}
 		}
+		// если нажата кнопка пауза ждем
+		while(CSpectrDlg::m_PressBn == PAUSE) Sleep(10);
 	}
 }
