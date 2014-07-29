@@ -73,6 +73,7 @@
 #define IDC_RADIO3                      1031
 #define IDC_EDIT12                      1033
 #define IDC_STATIC4                     1034
+#define IDC_STATIC5                     1035
 #define ID_MENU                         32771
 #define ID_MENU_SETTINGS                32772
 #define ID_SETTINGS_E2010               32773
@@ -107,7 +108,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        167
 #define _APS_NEXT_COMMAND_VALUE         32802
-#define _APS_NEXT_CONTROL_VALUE         1035
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

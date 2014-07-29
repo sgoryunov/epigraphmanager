@@ -99,6 +99,8 @@ void CSpectrDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT1, m_EditText);
 	DDX_Control(pDX, IDC_EDIT8, m_EditDataFile);
 	DDX_Control(pDX,IDC_TURBPICT,m_TurbPict);
+	DDX_Control(pDX, IDC_STATIC5, m_statusText);
+	m_statusText.GetDC()->SetTextColor(RGB(255,0,0));
 }
 
 BEGIN_MESSAGE_MAP(CSpectrDlg, CDialog)
@@ -126,10 +128,13 @@ END_MESSAGE_MAP()
 
 BOOL CSpectrDlg::OnInitDialog()
 {
+	
 	CDialog::OnInitDialog();
 	CSplashDlg::ShowSplashScreen(NULL);
 
 	// получим путь к рабочей директории
+	//m_statusText.SendMessage(WM_CTLCOLOR);
+	m_statusText.SetWindowText(_T("Experiment is stoped. To start define task file and datafile name."));
 	CString filePath(_T(""));
 	GetModuleFileName(NULL,filePath.GetBufferSetLength(_MAX_PATH),_MAX_PATH);
 	m_ExacutableFileDir = GetDirPathOfFile(filePath);
@@ -305,9 +310,8 @@ void CSpectrDlg::OnBnClickedStart()
 	//создаем и запускаем поток
 	m_hTaskThread = CreateThread(NULL,0,TaskThreadFunc,this,0,&m_dwTaskThreadId);
 	if(!m_hTaskThread) {PrintError(12);return;} 
-
-	
-	
+	m_statusText.SetWindowText(_T("Experiment start!"));
+	return;
 }
 
 
@@ -354,6 +358,7 @@ void CSpectrDlg::OnBnClickedStop()
 	GetDlgItem(IDC_PAUSE)->SetWindowTextW(_T("Pause"));
 	//установим иконку закрытой турбины
 	m_TurbPict.SetIcon(m_hIcRed);
+	m_statusText.SetWindowText(_T("Experiment is stoped. To start define task file and datafile name."));
 	//занулим идентификатор нажатой клавиши 
 	m_PressBn = NULL;
 
@@ -734,6 +739,17 @@ HBRUSH CSpectrDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			m_TurbPict.GetIcon() == m_hIcRed || 
 			!m_IsSysInMeasConditions) ? pDC->SetTextColor(RGB(255,0,0))
 						 : pDC->SetTextColor(RGB(0,180,0));
+		//m_statusText.GetDC()->SetTextColor(RGB(255,0,0));
+	}
+	if(pWnd->GetDlgCtrlID() == IDC_STATIC5)
+	{
+		CString str(_T(""));
+		pWnd->GetWindowText(str);
+		if(str.Find(_T("stop"))>0)
+			pDC->SetTextColor(RGB(255,0,0));
+		else 
+			pDC->SetTextColor(RGB(0,180,0));
+
 	}
 	return hbr;
 }

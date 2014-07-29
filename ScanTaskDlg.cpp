@@ -75,20 +75,33 @@ void CScanTaskDlg::OnBnClickedOk()
 	GetDlgItem(IDC_EDIT4)->GetWindowText(text[3]);// meas. time
 	GetDlgItem(IDC_EDIT5)->GetWindowText(text[4]);
 	GetDlgItem(IDC_EDIT6)->GetWindowText(text[5]);// grating freq
-	if (Filter(text))
+	if (!Filter(text))
 	{
-
+			AfxMessageBox(_T("Don't define measurement parameters or some parameters incorect!"));
+			return;
+	}
+	if (m_dlgID==FOURIER_TASK)
+	{
 		for (WORD i(initPos);i<=finitPos;i+=stepPos)
 		{
 			text[0].Format(_T("%i"),i);
 			ftext=(_T(" Chopper = "))+text[0]+(_T(" HSMotor = "))+text[5]+(_T(" Carriage Position = "))+text[4]+(_T(" Measurement Time = "))+text[3];
 			taskList->AddString(ftext);
 		}
-		bSave->EnableWindow(true); // активируем кнопку save
-		bOK->EnableWindow(false); // дизактивируем кнопку ОК
-		CDialog::OnOK();
+		
 	}
-	else AfxMessageBox(_T("Don't define measurement parameters or some parameters incorect!"));
+	else
+	{
+		for (WORD i(initPos);i<=finitPos;i+=stepPos)
+		{
+			text[0].Format(_T("%i"),i);
+			ftext=(_T(" Chopper = "))+text[4]+(_T(" HSMotor = "))+text[5]+(_T(" Carriage Position = "))+text[0]+(_T(" Measurement Time = "))+text[3];
+			taskList->AddString(ftext);
+		}
+	}
+	bSave->EnableWindow(true); // активируем кнопку save
+	bOK->EnableWindow(false); // дизактивируем кнопку ОК
+	CDialog::OnOK();
 }
 
 

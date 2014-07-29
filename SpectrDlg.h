@@ -85,6 +85,8 @@ public:
 	static ILE2010 *m_pE2010Module;
 	static short m_MinE2010DacValue;
 	static short m_MaxE2010DacValue;
+	afx_msg void OnMenuTaskfile();
+
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
@@ -108,11 +110,7 @@ private:
 	DWORD m_dwTaskThreadId;
 	static DWORD WINAPI TaskThreadFunc(LPVOID lpParametrs);
 	CStatic m_TurbPict;	
+	CStatic m_statusText;
 	
-
 	
-public:
-//	afx_msg void OnTaskfileAdvansedmode();
-//	afx_msg void OnTaskfileScanmode();
-	afx_msg void OnMenuTaskfile();
 };

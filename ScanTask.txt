@@ -1,0 +1,11 @@
+ Chopper = 0 HSMotor = 0 Carriage Position = 100 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 110 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 120 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 130 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 140 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 150 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 160 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 170 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 180 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 190 Measurement Time = 60
+ Chopper = 0 HSMotor = 0 Carriage Position = 200 Measurement Time = 60
